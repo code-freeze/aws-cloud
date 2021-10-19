@@ -7,7 +7,6 @@
         "node": "< 13.0"
     },
     "scripts": {
-
         "start": "node server.js",
         "tsc": "tsc",
         "dev": "ts-node-dev ./src/server.ts",

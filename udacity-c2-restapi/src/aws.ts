@@ -11,7 +11,7 @@ if(c.aws_profile !=="DEPLOYED"){
 // var credentials = new AWS.SharedIniFileCredentials({profile: c.aws_profile});
 // AWS.config.credentials = credentials;
 
-
+console.log("MARTINNNN LOG:",credentials); //ADDED FOR DEBUGGING
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
   region: c.aws_region,
@@ -47,7 +47,7 @@ export function getGetSignedUrl( key: string ): string{
 export function getPutSignedUrl( key: string ){
 
     const signedUrlExpireSeconds = 60 * 5
-
+    console.log("MARTINNNN LOG: I AM HERE NOW AWS");
     const url = s3.getSignedUrl('putObject', {
       Bucket: c.aws_media_bucket,
       Key: key,
