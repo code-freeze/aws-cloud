@@ -34,27 +34,27 @@ function generateJWT(user: User): string {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
-    // console.warn("auth.router not yet implemented, you'll cover this in lesson 5")
-    // return next(); }
-        if (!req.headers || !req.headers.authorization){
-            return res.status(401).send({ message: 'No authorization headers.' });
-        }
+    console.warn("auth.router not yet implemented, you'll cover this in lesson 5")
+    return next(); }
+        // if (!req.headers || !req.headers.authorization){
+        //     return res.status(401).send({ message: 'No authorization headers.' });
+        // }
         
 
-        const token_bearer = req.headers.authorization.split(' ');
-        if(token_bearer.length != 2){
-            return res.status(401).send({ message: 'Malformed token.' });
-        }
+        // const token_bearer = req.headers.authorization.split(' ');
+        // if(token_bearer.length != 2){
+        //     return res.status(401).send({ message: 'Malformed token.' });
+        // }
         
-        const token = token_bearer[1];
+        // const token = token_bearer[1];
 
-        return jwt.verify(token, config.dev.jwtSecret, (err, decoded) => {
-        if (err) {
-            return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
-        }
-        return next();
-        });
-    }
+        // return jwt.verify(token, config.dev.jwtSecret, (err, decoded) => {
+        // if (err) {
+        //     return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
+        // }
+        // return next();
+        // });
+    // }
 
 router.get('/verification', 
     requireAuth, 
@@ -74,8 +74,9 @@ router.post('/login', async (req: Request, res: Response) => {
     if (!password) {
         return res.status(400).send({ auth: false, message: 'Password is required' });
     }
-
+    console.log(email);   //troubleshootyig
     const user = await User.findByPk(email);
+    console.log(user);//troubleshootyig
     // check that user exists
     if(!user) {
         return res.status(401).send({ auth: false, message: 'Unauthorized' });
@@ -131,6 +132,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     // Generate JWT
     const jwt = generateJWT(savedUser);
+    console.log(jwt);
 
     res.status(201).send({token: jwt, user: savedUser.short()});
 });
