@@ -30,7 +30,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 
 function generateJWT(user: User): string {
     // Use jwt to create a new JWT Payload containing was a TODO
-    return jwt.sign(user, config.dev.jwtSecret)
+    return jwt.sign(user.toJSON(), config.dev.jwtSecret)
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
